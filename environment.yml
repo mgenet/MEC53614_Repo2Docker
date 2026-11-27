@@ -1,0 +1,33 @@
+################################################################################
+###                                                                          ###
+### Created by Martin Genet                                                  ###
+###                                                                          ###
+### École Polytechnique, Palaiseau, France                                   ###
+###                                                                          ###
+################################################################################
+
+# Environment of MEC_53614, 2026 session.
+# Students' environment: LIB53614 is installed from GitHub. For development, see README.md (editable install of the local clone).
+# Tested with E1 (numpy 2.5, scipy 1.18, scikit-learn 1.9, matplotlib 3.11, python 3.13).
+# To be completed for the next exercises (e.g., pytorch for L5–L6, gymnasium & stable-baselines3 for RL, pysindy for L7, a finite element library).
+
+name: MEC53614
+
+channels:
+  - conda-forge
+
+dependencies:
+  - ipywidgets
+  - jupyterlab
+  - matplotlib=3.11
+  - notebook
+  - numpy=2.5
+  - pandas
+  - pandoc
+  - python=3.13
+  - scikit-learn=1.9
+  - scipy=1.18
+
+  - pip
+  - pip:
+    # - git+https://github.com/mgenet/LIB53614.git

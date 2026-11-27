@@ -1,0 +1,40 @@
+################################################################################
+###                                                                          ###
+### Created by Martin Genet                                                  ###
+###                                                                          ###
+### École Polytechnique, Palaiseau, France                                   ###
+###                                                                          ###
+################################################################################
+
+# Builds the Docker image of the course environment with repo2docker, and
+# pushes it to the GitHub Container Registry, as ghcr.io/<actor>/<repository>
+# (lowercase), tagged "latest" and with the commit SHA (same as in
+# N-DEG-paper-demos). Then checks that the main packages and the course library
+# import.
+
+on:
+  - push
+  - workflow_dispatch
+
+permissions:
+  contents: read
+  packages: write # (new repositories give GITHUB_TOKEN read-only access by default)
+
+jobs:
+  build_and_push_docker_image:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v7
+
+    - name: Build and push docker image
+      id: repo2docker
+      uses: jupyterhub/repo2docker-action@master
+      with:
+        DOCKER_USERNAME: ${{github.actor}}
+        DOCKER_PASSWORD: ${{secrets.GITHUB_TOKEN}}
+        DOCKER_REGISTRY: ghcr.io
+
+    - name: Check docker image
+      run: docker run --rm ${{steps.repo2docker.outputs.IMAGE_SHA_NAME}} python -c "import numpy, scipy, sklearn, matplotlib, LIB53614; print('OK')"
