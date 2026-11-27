@@ -30,4 +30,4 @@ dependencies:
 
   - pip
   - pip:
-    # - git+https://github.com/mgenet/LIB53614.git
+    - git+https://github.com/mgenet/LIB53614.git
